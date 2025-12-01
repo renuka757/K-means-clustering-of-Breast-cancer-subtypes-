@@ -1,0 +1,18 @@
+data=pd.read_csv("transpose_counts2.csv")
+
+newdata=data.drop("subtype",axis=1)
+
+newdata.set_index("ID",inplace=True)
+
+
+subtypes=data["subtype"]
+colors = subtypes.astype('category').cat.codes
+print(newdata.dtypes)
+from sklearn.decomposition import PCA
+pca=PCA(n_components=2)
+pca_data=pca.fit_transform(newdata)
+df_pca=pd.DataFrame(pca_data,columns=["PC1","PC2"])
+df_pca["Subtype"]=data["subtype"].values
+sns.scatterplot(df_pca,hue="Subtype",x="PC1",y="PC2")
+plt.title("PCA Plot of Breast Cancer Subtypes")
+plt.legend(title="Subtype", bbox_to_anchor=(1.05, 1), loc='upper left')
