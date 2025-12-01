@@ -1,0 +1,23 @@
+df = pd.DataFrame({
+    'subtype': subtypes,  # your true subtype labels
+    'cluster': kmeans.labels_
+})
+
+ct = pd.crosstab(df['subtype'], df['cluster'])
+print(ct)
+#Sorting Cluster 0/1/2
+newdata["Clusters"]=clusters
+
+cluster0=newdata.query("Clusters==0")
+cluster1=newdata.query("Clusters==1")
+cluster2=newdata.query("Clusters==2")
+print(cluster0)
+cluster0_means = cluster0.mean()
+cluster1_means = cluster1.mean()
+cluster2_means = cluster2.mean()
+clust0vs_all=cluster0_means-(cluster1_means+cluster2_means)/2
+clust0genes=clust0vs_all.sort_values(ascending=False).head(200)
+clust1vs_all=cluster1_means-(cluster0_means+cluster2_means)/2
+clust1enes=clust1vs_all.sort_values(ascending=False).head(200)
+clust2vs_all=cluster2_means-(cluster1_means+cluster0_means)/2
+clust2enes=clust2vs_all.sort_values(ascending=False).head(200)
