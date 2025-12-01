@@ -1,0 +1,9 @@
+kmeans=KMeans(n_clusters=3,random_state=0)
+clusters=kmeans.fit_predict(pca_data)
+centroids=kmeans.cluster_centers_
+kmeans.labels_
+
+plt.scatter(pca_data[:,0], pca_data[:,1], c=kmeans.labels_, cmap='viridis',s=30)
+plt.scatter(centroids[:,0], centroids[:,1], c='red', marker='X', s=100)
+
+plt.title("K-means Clustering (k=3) on PCA-reduced Data")
