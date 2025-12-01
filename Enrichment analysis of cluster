@@ -1,0 +1,23 @@
+genelist1=clust2enes.index.to_list()
+print(genelist1)
+
+enr=gp.enrichr(gene_list=genelist1, 
+                 gene_sets="MSigDB_Hallmark_2020",
+                 organism='human', 
+                 outdir=None,
+                 cutoff=0.05)
+enr.run()
+
+
+
+
+ax = barplot(enr.results,
+              column="Adjusted P-value",
+              group="Gene_set", # set group, so you could do a multi-sample/library comparsion
+              size=10,
+              top_term=5,
+              figsize=(3,5),
+              #color=['darkred', 'darkblue'] # set colors for group
+              color ="darkblue"
+             )
+plt.title("Top Enriched Pathways in LumA+LumB")
